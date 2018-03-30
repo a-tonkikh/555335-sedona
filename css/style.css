@@ -27,15 +27,6 @@ main {
     display: block;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  background-color: rgba(225,225,225,0.6);
-  width: 100%;
-}
-
 .wrap {
     position: relative;
     width: 1200px;
@@ -75,12 +66,9 @@ footer {
   z-index: 1;
 }
 
-.site-navigation {
+.main-navigation .site-navigation {
   margin: 0;
   padding: 0;
-}
-
-.main-navigation .site-navigation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -263,7 +251,6 @@ li.feature-item {
   width: 400px;
 }
 
-
 .feature-item.blue h3,
 .feature-item.blue p  {
   color: #ffffff;
@@ -296,17 +283,25 @@ li.feature-item {
   background-color: #eeeeee;
 }
 
+.map {
+  position: relative;
+  overflow: hidden;
+}
+
 .map-intro {
+  position: relative;
+  z-index: 5;
+  background-color: #ffffff;
   text-align: center;
-  width: 400px;
+  width: 565px;
   margin: auto;
-  padding: 25px;
+  padding: 35px 60px;
   font-size: 14px;
   line-height: 24px;
 }
 
 .map-intro p {
-  margin: 0;
+  margin: 10px;
   padding: 0;
 }
 
@@ -315,31 +310,15 @@ li.feature-item {
   font-size: 30px;
   font-weight: 700;
   line-height: 36px;
-}
-
-.map {
-  position: relative;
-  overflow: hidden;
-}
-
-.map form {
-  background-color: #ffffff;
-  font-size: 14px;
-  line-height: 26px;
-  font-weight: 700;
-  color: #000000;
-  padding: 52px;
-  padding-top: 25px;
-  width: 460px;
-  position: absolute;
-  right: 0;
-  left: 0;
-  margin: auto;
-  text-align: justify;
+  padding: 0;
+  margin: 16px;
+  margin-bottom: 25px;
 }
 
 .form-search {
   display: block;
+  position: relative;
+  z-index: 5;
   font-size: 21px;
   line-height: 26px;
   font-weight: 700;
@@ -351,7 +330,6 @@ li.feature-item {
   min-width: 565px;
   padding: 30px;
   margin: 0 auto;
-  margin-top: 20px;
 }
 
 .form-search:hover,
@@ -368,12 +346,19 @@ li.feature-item {
 
 .hotel-search {
   display: none;
-}
-
-.form-show {
-  animation-name: hotel-show;
-  animation-duration: 1s;
-  display: block;
+  background-color: #ffffff;
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #000000;
+  padding: 52px;
+  padding-top: 25px;
+  width: 460px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: justify;
 }
 
 .hotel-search input {
@@ -384,6 +369,7 @@ li.feature-item {
   background-color: #f2f2f2;
   border: 2px solid #f2f2f2;
   padding: 0;
+  padding-left: 2px;
   margin: 0;
   height: 34px;
 }
@@ -604,7 +590,6 @@ li.feature-item {
   overflow: hidden;
 }
 
-
 .facilities label {
   position: relative;
   padding-left: 40px;
@@ -627,7 +612,6 @@ li.feature-item {
 .facilities input:focus + label::before {
   outline: 2px solid #6ba2fe;
 }
-
 
 .facilities input:checked + label::before {
   background: url("../img/checkbox-on.svg") no-repeat;
@@ -787,19 +771,9 @@ section.scale {
   margin: 0;
 }
 
-.assortment {
+.scale .assortment {
   font-size: 12px;
   line-height: 18px;
-}
-
-
-.scale .assortment {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.assortment {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -917,6 +891,7 @@ li.hotels-item {
   overflow: hidden;
   -o-object-fit: cover;
      object-fit: cover;
+  margin-right: 32px;
 }
 
 .hotel-information div {
@@ -947,10 +922,6 @@ li.hotels-item {
 
 .hotels-item h3 a:active {
   color: rgba(0, 0, 0, 0.3);
-}
-
-.hotel-information img {
-  margin-right: 32px;
 }
 
 .hotels-item .hotel-rate {
@@ -1049,10 +1020,14 @@ li.hotels-item {
 /* footer */
 
 .main-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(254,254,254,0.9);
+  width: 100%;
   color: #000000;
-  background-color:rgba(255, 255, 255, 0.9);
-  margin-top: 0;
-  padding: 31px 0;
+  padding: 40px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1176,8 +1151,43 @@ li.hotels-item {
     }
     100% {
         transform: translateY(0%);
+    }
 }
 
+.form-show {
+  animation-name: hotel-show;
+  animation-duration: 1s;
+  display: block;
+}
+
+@keyframes shake {
+  0%,
+ 100% {
+   transform: translateX(0);
+ }
+
+ 10%,
+ 30%,
+ 50%,
+ 70%,
+ 90% {
+   transform: translateX(-10px);
+ }
+
+ 20%,
+ 40%,
+ 60%,
+ 80% {
+   transform: translateX(10px);
+  }
+}
+
+.modal-error {
+  animation-name: shake;
+  animation-duration: 0.6s;
+}
+
+/*
 @keyframes hotel-hide {
   0% {
     transform: translateY(0%);
@@ -1185,3 +1195,4 @@ li.hotels-item {
   100% {transform: translateY(-100%);
   }
 }
+*/

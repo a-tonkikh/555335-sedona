@@ -8,6 +8,7 @@
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
+  <section class="wrap">
     <header class="main-header">
          <nav class="main-navigation">
            <p class="main-header-logo">
@@ -21,7 +22,6 @@
            </ul>
          </nav>
     </header>
-    <section class="wrap">
     <main class="container">
         <section class="intro">
           <h2 class="visually-hidden">Welcome</h2>
@@ -104,10 +104,11 @@
             <p>Укажите предполагаемые даты поездки, и мы покажем вам лучшие предложения гостиниц в седоне</p>
           </div>
           <button type="button" class="form-search">Поиск гостиницы в Седоне</button>
-          <form class="hotel-search" method="get">
+          <div class="hotel-search">
+            <form method="get" action="https://echo.htmlacademy.ru" >
             <p class="date">
               <label for="arrive">Дата заезда:</label>
-              <input type="text" name="arrive" id="arrive" value="24 апреля 2017">
+              <input type="text" name="arrive" id="arrive" placeholder="24 апреля 2017">
               <button class="form-button" type="button">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               	 width="21px" height="22px" viewBox="0 0 21 22" enable-background="new 0 0 21 22" xml:space="preserve">
@@ -132,7 +133,7 @@
             </p>
             <p class="date">
               <label for="leave">Дата Выезда:</label>
-              <input type="text" name="leave" id="leave" value="4 июля 2017">
+              <input type="text" name="leave" id="leave" placeholder="4 июля 2017">
               <button class="form-button" type="button">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               	 width="21px" height="22px" viewBox="0 0 21 22" enable-background="new 0 0 21 22" xml:space="preserve">
@@ -158,19 +159,20 @@
             <p class="half-width adult">
               <label for="adult">Взрослые:</label>
               <button class="form-button" type="button">–</button>
-              <input name="adult" id="adult" type="text" value="2"/>
+              <input name="adult" id="adult" type="text" placeholder="2">
               <button class="form-button" type="button">+</button>
             </p>
             <p class="half-width child">
               <label for="child">Дети:</label>
               <button class="form-button" type="button">–</button>
-              <input name="child" id="child" type="text" value="0"/>
+              <input name="child" id="child" type="text" placeholder="0">
               <button class="form-button" type="button">+</button>
             </p>
             <p class="buttons search-form">
               <button type="button" class="submit">Найти</button>
             </p>
         </form>
+      </div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52384.95626757897!2d-111.83702446282044!3d34.85472554668858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872da132f942b00d%3A0x5548c523fa6c8efd!2sSedona%2C+AZ+86336%2C+USA!5e0!3m2!1sen!2sru!4v1522090336225"
          width="1200" height="595" frameborder="0" style="border:0" allowfullscreen></iframe>
         <p class="map-image">
@@ -226,13 +228,57 @@
       </div>
     </footer>
   </section>
-    <script>
+      <script>
       var button = document.querySelector(".form-search");
-      var form = document.querySelector(".hotel-search");
+      var modal = document.querySelector(".hotel-search");
+      var form = modal.querySelector("form");
+      var arrive = modal.querySelector("[name=arrive]");
+      var leave = modal.querySelector("[name=leave]");
+      var adult = modal.querySelector("[name=adult]");
+      var child = modal.querySelector("[name=child]");
+      var isStorageSupport = true;
+      var storage = "";
+
+      try {
+        storage = localStorage.getItem("arrive");
+      } catch (err) {
+        isStorageSupport = false;
+      }
+
         button.addEventListener("click", function (evt) {
           evt.preventDefault();
-          form.classList.toggle("form-show");
+          modal.classList.toggle("form-show");
+          if (storage) {
+            adult.value = storage;
+            child.focus();
+          } else {
+            adult.focus();
+          }
         });
-</script>
+
+        form.addEventListener("submit", function (evt) {
+           if (!arrive.value || !leave.value || !adult.value || !child.value) {
+             evt.preventDefault();
+             modal.classList.remove("modal-error");
+             modal.offsetWidth = modal.offsetWidth;
+             modal.classList.add("modal-error");
+           } else {
+             if (isStorageSupport) {
+               localStorage.setItem("adult", adult.value);
+               localStorage.setItem("child", child.value);
+             }
+           }
+         });
+
+         window.addEventListener("keydown", function (evt) {
+           if (evt.keyCode === 27) {
+             evt.preventDefault();
+             if (modal.classList.contains("modal-show")) {
+             modal.classList.remove("modal-show");
+             modal.classList.remove("modal-error");
+           }
+         }
+       });
+      </script>
   </body>
 </html>
