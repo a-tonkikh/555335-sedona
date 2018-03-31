@@ -14,15 +14,15 @@ try {
   isStorageSupport = false;
 }
 
-  button.addEventListener("click", function (evt) {
-    evt.preventDefault();
-    modal.classList.toggle("form-show");
-  });
+button.addEventListener("click", function(evt) {
+  evt.preventDefault();
+  modal.classList.toggle("form-show");
+});
 
-  form.addEventListener("submit", function (evt) {
-    evt.preventDefault();
-    if (isStorageSupport) {
-      localStorage.setItem("adult", adult.value);
-      localStorage.setItem("child", child.value);
-       }
-   });
+form.addEventListener("submit", function(evt) {
+  evt.preventDefault();
+  if (isStorageSupport) {
+    localStorage.setItem("adult", adult.value);
+    localStorage.setItem("child", child.value);
+  }
+});
